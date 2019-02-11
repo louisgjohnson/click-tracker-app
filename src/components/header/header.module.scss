@@ -1,0 +1,22 @@
+.root {
+  width: 100%;
+  background: #2a2a2a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  padding: 1rem 0;
+  border-bottom: 0.5rem solid #4b54e9;
+}
+
+.content_container {
+  margin: 0 auto;
+  width: 90%;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.content {
+  margin: 0 auto;
+}
