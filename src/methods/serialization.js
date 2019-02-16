@@ -1,4 +1,4 @@
-const save = ({ key, data }) => {
+const save = ({ key, data = '' }) => {
   window.localStorage.setItem(key, JSON.stringify(data));
 };
 

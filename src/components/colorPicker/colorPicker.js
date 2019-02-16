@@ -1,26 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import ColorButton from '../colorButton/colorButton';
 import styles from './colorPicker.module.scss';
 
-class ColorPicker extends PureComponent {
-  getColorButtons = colors =>
-    colors.map(color => (
-      <ColorButton
-        key={color}
-        onClick={this.props.onClick}
-        checked={this.props.selected === color}
-        color={color}
-      />
-    ));
-
-  render = () => (
+const ColorPicker = ({ colors, onClick, selected }) => {
+  return (
     <div className={styles.root}>
       <span className={styles.text}>Colours:</span>
-      {this.getColorButtons(this.props.colors)}
+      {getColorButtons({ colors, onClick, selected })}
     </div>
   );
-}
+};
+
+const getColorButtons = ({ colors, onClick, selected }) =>
+  colors.map(color => (
+    <ColorButton
+      key={color}
+      onClick={onClick}
+      checked={selected === color}
+      color={color}
+    />
+  ));
 
 ColorPicker.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -28,4 +28,4 @@ ColorPicker.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default ColorPicker;
+export default memo(ColorPicker);

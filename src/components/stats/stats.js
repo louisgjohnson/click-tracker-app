@@ -1,39 +1,27 @@
-import React, { PureComponent } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './stats.module.scss';
 
-class Stats extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clicksInSession: 0,
-      originalClickAmount: props.clickAmount
-    };
+const Stats = ({ clickAmount }) => {
+  const clickState = useState(0);
+  const updateClicksInSession = clickState[1];
+  const [getOriginalAmount, updateOriginalAmount] = useState(clickAmount);
+
+  if (getOriginalAmount > clickAmount) {
+    updateClicksInSession(0);
+    updateOriginalAmount(clickAmount);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const clicksInSession = props.clickAmount - state.originalClickAmount;
-    if (clicksInSession > 0) {
-      return {
-        clicksInSession
-      };
-    }
-    return {
-      clicksInSession: 0,
-      originalClickAmount: props.clickAmount
-    };
-  }
-
-  render = () => (
+  return (
     <div className={styles.root}>
-      <span>Clicks in total: {this.props.clickAmount} </span>
-      <span>Clicks this session: {this.state.clicksInSession} </span>
+      <span>Clicks in total: {clickAmount} </span>
+      <span>Clicks this session: {clickAmount - getOriginalAmount} </span>
     </div>
   );
-}
+};
 
 Stats.propTypes = {
   clickAmount: PropTypes.number.isRequired
 };
 
-export default Stats;
+export default memo(Stats);
