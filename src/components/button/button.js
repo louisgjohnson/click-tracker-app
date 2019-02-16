@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './button.module.scss';
 
@@ -14,4 +14,4 @@ Button.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default Button;
+export default memo(Button);
